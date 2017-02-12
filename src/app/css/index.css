@@ -1,0 +1,27 @@
+.list {
+    display: inline-block;
+    ;
+}
+
+.list ul {
+    list-style: none;
+}
+
+.list ul li {
+    line-height: 30px;
+    font-size: 20px;
+    display: block;
+    height: 40px;
+    width: 250px;
+    color: #fff;
+    background-color: maroon;
+    border-bottom: 1px dashed gold;
+    padding-left: 15px;
+}
+
+.active {
+    background-color: oldlace !important;
+    color: maroon !important;
+    text-decoration: underline;
+    font-weight: bold;
+}

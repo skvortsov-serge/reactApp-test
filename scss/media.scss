@@ -1,0 +1,268 @@
+/*==========  Desktop First Method  ==========*/
+
+
+/* Large Devices, Wide Screens */
+
+@media only screen and (max-width: 1200px) {}
+
+
+/* Medium Devices, Desktops */
+
+@media only screen and (max-width: 992px) {
+    body .content,
+    body .container-width {
+        width: 750px;
+    }
+    .navbar button {
+        float: right;
+        margin: 25px;
+    }
+    .navbar .nav {
+        text-align: left;
+        width: 130px;
+    }
+    .dropdown {
+        float: left;
+        margin-top: 50px;
+        margin-left: -120px;
+    }
+    .navbar-toggle .icon-bar {
+        background-color: #f18c07;
+        width: 31px;
+        height: 3px;
+        margin-bottom: 6px;
+        border-radius: 20px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .btn-default:hover {
+        background-color: transparent;
+        border-color: #f18c07;
+    }
+    .btn-default:focus,
+    .btn-default.focus {
+        color: #333;
+        background-color: transparent;
+        border-color: #f18c07;
+    }
+    .content .bg-logo {
+        img {
+            width: 90%;
+        }
+        p {
+            left: 80%;
+        }
+    }
+    .content .info {
+        width: 600px;
+        h1 {
+            font-size: 30px;
+            margin-left: 60px;
+        }
+        p {
+            width: auto;
+            font-size: 18px;
+        }
+    }
+    .bg-logo #footprint-1 {
+        right: 3%;
+        top: -31%;
+    }
+    .bg-logo #footprint-2 {
+        right: -18%;
+        top: -50%;
+    }
+    .bg-logo #footprint-3 {
+        right: -163px;
+        top: -1%;
+    }
+    .bg-logo #footprint-4 {
+        right: -47%;
+        top: 90%;
+    }
+    .bg-logo #footprint-5 {
+        right: -53%;
+        top: 201%;
+    }
+    .bg-logo #footprint-6 {
+        right: -44%;
+        top: 296%;
+    }
+    .slide-logo .community {
+        width: auto;
+    }
+    .features .image {
+        text-align: center;
+    }
+    .call-to-action {
+        .buy-btn {
+            position: static;
+            top: 0;
+            left: 0;
+            text-align: center;
+            margin-top: 15px;
+        }
+        .big-logo {
+            margin-left: 0;
+            img {
+                // top: -10%;
+                // left: 24%;
+            }
+            p {
+                margin: 0;
+                text-align: center;
+            }
+        }
+    }
+    footer {
+        .soc-media .soc-block .soc-icon {
+            text-align: center;
+            display: inline-block;
+            float: none;
+            height: auto;
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+        .contacts {
+            top: 25%;
+            left: -5.5%;
+            ul li {
+                display: inline-block;
+            }
+        }
+        .copyright {
+            left: 0;
+        }
+    }
+}
+
+
+/* Small Devices, Tablets */
+
+@media only screen and (max-width: 768px) {
+    body .content,
+    body .container-width {
+        width: 100%;
+    }
+    .content .bg-logo {
+        margin-left: 0;
+        img {
+            width: 358px;
+            height: 101px;
+            display: block;
+            margin: 0 auto;
+        }
+    }
+    .content .info {
+        width: 80%;
+        h1 {
+            text-align: center;
+            margin-left: 0;
+        }
+    }
+    .call-to-action {
+        .buy-btn {
+            position: static;
+            top: 0;
+            left: 0;
+        }
+        .big-logo {
+            margin-left: 0;
+        }
+    }
+    .features {
+        .image img {
+            width: 368px;
+            height: 219px;
+        }
+    }
+    footer {
+        .contacts {
+            left: -9%;
+        }
+        .copyright {
+            left: 0;
+        }
+    }
+}
+
+
+/* Extra Small Devices, Phones */
+
+@media only screen and (max-width: 480px) {
+    .content {
+        .info {
+            h1 {
+                font-size: 22px;
+            }
+            p {
+                font-size: 16px;
+                margin-top: 0;
+            }
+        }
+        .bg-logo img {
+            width: 273px;
+            height: 78px;
+            display: block;
+            margin: 0 auto;
+        }
+    }
+    .features {
+        h1 {
+            font-size: 22px;
+        }
+        .description p {
+            font-size: 16px;
+        }
+        .image img {
+            width: 100%;
+            height: auto;
+        }
+    }
+    footer {
+    	.contacts ul li a {
+    		margin-left: 25px;
+    	}
+        .soc-media .soc-icon {
+            margin-right: 50px;
+        }
+    }
+}
+
+
+/* Custom, iPhone Retina */
+
+@media only screen and (max-width: 320px) {}
+
+
+/*==========  Mobile First Method  ==========*/
+
+
+/* Custom, iPhone Retina */
+
+@media only screen and (min-width: 320px) {}
+
+
+/* Extra Small Devices, Phones */
+
+@media only screen and (min-width: 480px) {}
+
+
+/* Small Devices, Tablets */
+
+@media only screen and (min-width: 768px) {}
+
+
+/* Medium Devices, Desktops */
+
+@media only screen and (min-width: 992px) {}
+
+
+/* Large Devices, Wide Screens */
+
+@media only screen and (min-width: 1200px) {}

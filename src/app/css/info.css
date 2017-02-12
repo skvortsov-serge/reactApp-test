@@ -1,0 +1,60 @@
+.info {
+    display: inline-block;
+    float: right;
+    margin-right: 60px;
+    margin-top: 12px;
+}
+
+.info ul li {
+    line-height: 30px;
+    font-size: 20px;
+    display: block;
+    height: auto;
+    width: 370px;
+    color: #fff;
+    background-color: maroon;
+    border-bottom: 1px dashed gold;
+    padding-left: 15px;
+}
+
+.info ul ul li {
+    background-color: darkblue;
+    width: 350px;
+}
+
+.info ul li span {
+    display: inline-block;
+    height: 40px;
+    width: 100px;
+    font-size: 18px;
+    padding-left: 15px;
+    background-color: oldlace;
+    color: maroon;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+
+/*.info ul li ul {
+    display: none;
+}*/
+
+.info .nested-list-2 ul,
+.info .nested-list-5 ul {
+    display: none;
+}
+
+.clicked-ul {
+    display: block !important;
+}
+
+
+/*.info .nested-list-2:hover,
+.info .nested-list-5:hover {
+    height: 250px;
+}
+
+.info .nested-list-2:hover ul,
+.info .nested-list-5:hover ul {
+    display: block;
+}*/
