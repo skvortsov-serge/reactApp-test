@@ -92,10 +92,6 @@ var Example = React.createClass({
         var objInfoCopy = (cloneObject(objInfo));
         delete objInfoCopy.id;
         delete objInfoCopy.name;
-    	// for (var prop in objInfo) {
-    	// 	 arrayInfo.push(objInfo[prop]); 
-    	// } //get objects properties
-    	// arrayInfo.splice(0, 2);
 
         var objRender = function(obj) {
             var nstObj = [];
@@ -112,32 +108,7 @@ var Example = React.createClass({
                 }); 
              return nstObjProps;
         }
-        // objRender(objInfo);
-
-    	// inserting objects properties into the DOM--------------------
-    	// var mapArrayInfo = arrayInfo.map(function(item, index) {
-    	// 	// checking if prop is a object
-    	// 	if(typeof item === 'object') {
-    	// 		var nstObj = [];
-    	// 		var nstObjKeysArray = [];
-    	// 		for (var prop in item) {
-    	// 	 			nstObj.push(item[prop]); 
-    	// 	 			nstObjKeysArray.push(prop); 
-    	// 			}
-    	// 		var nstObjProps = nstObj.map(function(elem, i) {
-        // 						if(typeof elem === 'object') {
-        // 							return false;
-        // 						}
-        // 						return <li><span>{nstObjKeysArray[i]}</span> : {elem}</li>
-        // 					});
-    	// 	return (<li className={'nested-list-'+index}> <KeysInfo info={objInfo} index={index} /> <button onClick={that.clickedButton}>Show details</button>
-    	// 				<ul>
-        // 					  {nstObjProps}
-    	// 				</ul>
-    	// 			</li>);
-    	// 	}
-    	// 	return <li><KeysInfo info={objInfo} index={index} /> : {item}</li>
-    	// });
+        
     	this.setState({
                 	userInfo: objRender(objInfoCopy)
                 });
@@ -146,27 +117,9 @@ var Example = React.createClass({
     clickedButton: function(e) {
     	var button = e.target;
     	var parentLi = button.parentNode;
-     //    console.log(parentLi.childNodes[5]);
-    	// parentLi.classList.toggle('clicked');
     	parentLi.childNodes[5].classList.toggle('clicked-ul');
     },
 
-    // handleSearch: function(e) {
-    //     var that = this;
-    //     var searchQuery = e.target.value.toLowerCase();
-    //     var displayedUsers = this.state.info.filter(function(user) {
-    //         var searchString = user.props.children[1].name.toLowerCase() + user.props.children[1].username.toLowerCase() + user.props.children[1].email.toLowerCase();
-    //         return searchString.indexOf(searchQuery) !== -1;
-    //     });
-    //     var displayedUsersLi = displayedUsers.map(function(item) {
-    //         return (<li onClick={that.clicked} key={item.props.children[1].id} id={item.props.children[1].id}> {item.props.children[1].name} </li>)
-    //     });
-
-    //     that.setState({
-    //         listNames: displayedUsersLi
-    //     });
-
-    // },
     changeList: function(str) {
         this.setState({
             listNames: str

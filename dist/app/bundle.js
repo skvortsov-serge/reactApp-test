@@ -158,10 +158,6 @@
 	        var objInfoCopy = cloneObject(objInfo);
 	        delete objInfoCopy.id;
 	        delete objInfoCopy.name;
-	        // for (var prop in objInfo) {
-	        // 	 arrayInfo.push(objInfo[prop]); 
-	        // } //get objects properties
-	        // arrayInfo.splice(0, 2);
 	
 	        var objRender = function objRender(obj) {
 	            var nstObj = [];
@@ -207,32 +203,7 @@
 	            });
 	            return nstObjProps;
 	        };
-	        // objRender(objInfo);
 	
-	        // inserting objects properties into the DOM--------------------
-	        // var mapArrayInfo = arrayInfo.map(function(item, index) {
-	        // 	// checking if prop is a object
-	        // 	if(typeof item === 'object') {
-	        // 		var nstObj = [];
-	        // 		var nstObjKeysArray = [];
-	        // 		for (var prop in item) {
-	        // 	 			nstObj.push(item[prop]); 
-	        // 	 			nstObjKeysArray.push(prop); 
-	        // 			}
-	        // 		var nstObjProps = nstObj.map(function(elem, i) {
-	        // 						if(typeof elem === 'object') {
-	        // 							return false;
-	        // 						}
-	        // 						return <li><span>{nstObjKeysArray[i]}</span> : {elem}</li>
-	        // 					});
-	        // 	return (<li className={'nested-list-'+index}> <KeysInfo info={objInfo} index={index} /> <button onClick={that.clickedButton}>Show details</button>
-	        // 				<ul>
-	        // 					  {nstObjProps}
-	        // 				</ul>
-	        // 			</li>);
-	        // 	}
-	        // 	return <li><KeysInfo info={objInfo} index={index} /> : {item}</li>
-	        // });
 	        this.setState({
 	            userInfo: objRender(objInfoCopy)
 	        });
@@ -241,27 +212,9 @@
 	    clickedButton: function clickedButton(e) {
 	        var button = e.target;
 	        var parentLi = button.parentNode;
-	        //    console.log(parentLi.childNodes[5]);
-	        // parentLi.classList.toggle('clicked');
 	        parentLi.childNodes[5].classList.toggle('clicked-ul');
 	    },
 	
-	    // handleSearch: function(e) {
-	    //     var that = this;
-	    //     var searchQuery = e.target.value.toLowerCase();
-	    //     var displayedUsers = this.state.info.filter(function(user) {
-	    //         var searchString = user.props.children[1].name.toLowerCase() + user.props.children[1].username.toLowerCase() + user.props.children[1].email.toLowerCase();
-	    //         return searchString.indexOf(searchQuery) !== -1;
-	    //     });
-	    //     var displayedUsersLi = displayedUsers.map(function(item) {
-	    //         return (<li onClick={that.clicked} key={item.props.children[1].id} id={item.props.children[1].id}> {item.props.children[1].name} </li>)
-	    //     });
-	
-	    //     that.setState({
-	    //         listNames: displayedUsersLi
-	    //     });
-	
-	    // },
 	    changeList: function changeList(str) {
 	        this.setState({
 	            listNames: str
@@ -42587,8 +42540,12 @@
 			var that = this;
 			var searchQuery = this.refs.inpText.value.toLowerCase().trim();
 	
-			function searchingBy(dispUsers) {
-				var displayedUsersLi = dispUsers.map(function (item) {
+			function searchingBy(search) {
+				var displayedUsers = that.props.info.filter(function (user) {
+					var searchString = user.props.children[1][search].toLowerCase();
+					return searchString.indexOf(searchQuery) !== -1;
+				});
+				var displayedUsersLi = displayedUsers.map(function (item) {
 					return React.createElement(
 						'li',
 						{ onClick: that.props.click, key: item.props.children[1].id, id: item.props.children[1].id },
@@ -42600,33 +42557,14 @@
 				that.props.changeList(displayedUsersLi);
 			}
 			// ---------------search by Name Block-----------------------------------------------
-			if (selectedValue == 'name') {
-				var displayedUsers = this.props.info.filter(function (user) {
-					var searchString = user.props.children[1].name.toLowerCase();
-					return searchString.indexOf(searchQuery) !== -1;
-				});
-				searchingBy(displayedUsers);
-			}
-			// --------------------------------------------------------------------------------------
+			if (selectedValue == 'name') searchingBy('name');
 	
 			// ---------------search by Username Block-----------------------------------------------
-			if (selectedValue == 'username') {
-				var displayedUsers = this.props.info.filter(function (user) {
-					var searchString = user.props.children[1].username.toLowerCase();
-					return searchString.indexOf(searchQuery) !== -1;
-				});
-				searchingBy(displayedUsers);
-			}
+			if (selectedValue == 'username') searchingBy('username');
 			// --------------------------------------------------------------------------------------
 	
 			// ---------------search by Email Block-----------------------------------------------
-			if (selectedValue == 'email') {
-				var displayedUsers = this.props.info.filter(function (user) {
-					var searchString = user.props.children[1].email.toLowerCase();
-					return searchString.indexOf(searchQuery) !== -1;
-				});
-				searchingBy(displayedUsers);
-			}
+			if (selectedValue == 'email') searchingBy('email');
 			// --------------------------------------------------------------------------------------
 	
 			// ---------------search by All Block-----------------------------------------------
@@ -42635,7 +42573,16 @@
 					var searchString = user.props.children[1].name.toLowerCase() + user.props.children[1].username.toLowerCase() + user.props.children[1].email.toLowerCase();
 					return searchString.indexOf(searchQuery) !== -1;
 				});
-				searchingBy(displayedUsers);
+				var displayedUsersLi = displayedUsers.map(function (item) {
+					return React.createElement(
+						'li',
+						{ onClick: that.props.click, key: item.props.children[1].id, id: item.props.children[1].id },
+						' ',
+						item.props.children[1].name,
+						' '
+					);
+				});
+				that.props.changeList(displayedUsersLi);
 			}
 		},
 	
@@ -42654,8 +42601,18 @@
 				return objId;
 			});
 	
-			function sortingAZ(sort) {
-				var sortedLi = sort.map(function (item) {
+			function sortingAZ(sort, dot) {
+				var dots = dot || false;
+				if (dots) {
+					var soretedCompany = mapObj.sort(function (a, b) {
+						if (a[0].props.children[1][sort][dots] > b[0].props.children[1][sort][dots]) return 1;
+					});
+				} else {
+					var soretedCompany = mapObj.sort(function (a, b) {
+						if (a[0].props.children[1][sort] > b[0].props.children[1][sort]) return 1;
+					});
+				}
+				var sortedLi = soretedCompany.map(function (item) {
 					return React.createElement(
 						'li',
 						{ onClick: that.props.click, key: item[0].props.children[1].id, id: item[0].props.children[1].id },
@@ -42668,45 +42625,16 @@
 			}
 	
 			// -------Sort by Name Block-----------------------------------------------
-			if (selectedValue == 'name') {
-				var soretedCompany = mapObj.sort(function (a, b) {
-					if (a[0].props.children[1].name > b[0].props.children[1].name) return 1;
-				});
-				sortingAZ(soretedCompany);
-			}
-			// --------------------------------------------------------------------------------------
+			if (selectedValue == 'name') sortingAZ('name');
+	
 			// ---------------Sort by Username Block-----------------------------------------------
-			if (selectedValue == 'username') {
-				var soretedCompany = mapObj.sort(function (a, b) {
-					if (a[0].props.children[1].username > b[0].props.children[1].username) return 1;
-				});
-				sortingAZ(soretedCompany);
-			}
-			// --------------------------------------------------------------------------------------
+			if (selectedValue == 'username') sortingAZ('username');
 			// ---------------Sort by Email Block-----------------------------------------------
-			if (selectedValue == 'email') {
-				var soretedCompany = mapObj.sort(function (a, b) {
-					if (a[0].props.children[1].email > b[0].props.children[1].email) return 1;
-				});
-				sortingAZ(soretedCompany);
-			}
-			// --------------------------------------------------------------------------------------
+			if (selectedValue == 'email') sortingAZ('email');
 			// ---------------Sort by Address Block-----------------------------------------------
-			if (selectedValue == 'address') {
-				var soretedCompany = mapObj.sort(function (a, b) {
-					if (a[0].props.children[1].address.street > b[0].props.children[1].address.street) return 1;
-				});
-				sortingAZ(soretedCompany);
-			}
-			// --------------------------------------------------------------------------------------
+			if (selectedValue == 'address') sortingAZ('address', 'street');
 			// ---------------Sort by Company Block-----------------------------------------------
-			if (selectedValue == 'company') {
-				var soretedCompany = mapObj.sort(function (a, b) {
-					if (a[0].props.children[1].company.name > b[0].props.children[1].company.name) return 1;
-				});
-				sortingAZ(soretedCompany);
-			}
-			// --------------------------------------------------------------------------------------
+			if (selectedValue == 'company') sortingAZ('company', 'name');
 		},
 	
 		sortZA: function sortZA() {
@@ -42724,8 +42652,18 @@
 				return objId;
 			});
 	
-			function sortingZA(sort) {
-				var sortedLi = sort.map(function (item) {
+			function sortingZA(sort, dot) {
+				var dots = dot || false;
+				if (dots) {
+					var soretedCompany = mapObj.sort(function (a, b) {
+						if (a[0].props.children[1][sort][dots] < b[0].props.children[1][sort][dots]) return 1;
+					});
+				} else {
+					var soretedCompany = mapObj.sort(function (a, b) {
+						if (a[0].props.children[1][sort] < b[0].props.children[1][sort]) return 1;
+					});
+				}
+				var sortedLi = soretedCompany.map(function (item) {
 					return React.createElement(
 						'li',
 						{ onClick: that.props.click, key: item[0].props.children[1].id, id: item[0].props.children[1].id },
@@ -42736,56 +42674,21 @@
 				});
 				that.props.changeList(sortedLi);
 			}
-			// --------
 	
 			// ---------------Sort by Name Block-----------------------------------------------
-			if (selectedValue == 'name') {
-				var soretedCompany = mapObj.sort(function (a, b) {
-					if (a[0].props.children[1].name < b[0].props.children[1].name) return 1;
-				});
-				sortingZA(soretedCompany);
-			}
-			// --------------------------------------------------------------------------------------
-	
+			if (selectedValue == 'name') sortingZA('name');
 	
 			// ---------------Sort by Username Block-----------------------------------------------
-			if (selectedValue == 'username') {
-				var soretedCompany = mapObj.sort(function (a, b) {
-					if (a[0].props.children[1].username < b[0].props.children[1].username) return 1;
-				});
-				sortingZA(soretedCompany);
-			}
-			// --------------------------------------------------------------------------------------
-	
+			if (selectedValue == 'username') sortingZA('username');
 	
 			// ---------------Sort by Email Block-----------------------------------------------
-			if (selectedValue == 'email') {
-				var soretedCompany = mapObj.sort(function (a, b) {
-					if (a[0].props.children[1].email < b[0].props.children[1].email) return 1;
-				});
-				sortingZA(soretedCompany);
-			}
-			// --------------------------------------------------------------------------------------
-	
+			if (selectedValue == 'email') sortingZA('email');
 	
 			// ---------------Sort by Address Block-----------------------------------------------
-			if (selectedValue == 'address') {
-				var soretedCompany = mapObj.sort(function (a, b) {
-					if (a[0].props.children[1].address.street < b[0].props.children[1].address.street) return 1;
-				});
-				sortingZA(soretedCompany);
-			}
-			// -----------------------------------------------------------------------------------
-	
+			if (selectedValue == 'address') sortingZA('address', 'street');
 	
 			// ---------------Sort by Company Block-----------------------------------------------
-			if (selectedValue == 'company') {
-				var soretedCompany = mapObj.sort(function (a, b) {
-					if (a[0].props.children[1].company.name < b[0].props.children[1].company.name) return 1;
-				});
-				sortingZA(soretedCompany);
-			}
-			// --------------------------------------------------------------------------------------
+			if (selectedValue == 'company') sortingZA('company', 'name');
 		},
 	
 		router: function router() {
